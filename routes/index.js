@@ -8,8 +8,8 @@ const buscaRoutes = require('./buscar');
 router.use('/', homeRoutes);
 router.use('/busca', buscaRoutes);
 
-router.use('/*', function(req, res, next) {
- res.redirect('/');
-});
+// router.use('/*', function(req, res, next) {
+//  res.redirect('/');
+// });
 
 module.exports = router;
