@@ -2,11 +2,14 @@ const express = require('express');
 const router = express.Router();
 
 // Importar rotas específicas
-const produtosRoutes = require('./produtos');
-const categoriasRoutes = require('./categorias');
+const homeRoutes = require('./home');
+const buscaRoutes = require('./buscar');
 
-// Usar as rotas
-router.use('/produtos', produtosRoutes);
-router.use('/categorias', categoriasRoutes);
+router.use('/', homeRoutes);
+router.use('/busca', buscaRoutes);
+
+router.use('/*', function(req, res, next) {
+ res.redirect('/');
+});
 
 module.exports = router;

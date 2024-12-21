@@ -12,9 +12,8 @@ router.get('/', async (req, res) => {
             "User-Secret-Key": process.env.YAMPI_SECRET_KEY,
           },
       });
-      res.json(response.data);
 
-      console.response.data
+      res.render('produtos', { produtos: response.data.data });
 
   } catch (error) {
       console.error(error.message);
