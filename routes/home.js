@@ -13,8 +13,6 @@ router.get('/', async (req, res) => {
           },
       });
 
-      res.json(response.data);
-
       res.render('home', { produtos: response.data.data });
 
   } catch (error) {
