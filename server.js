@@ -13,6 +13,10 @@ app.use(cors());
 // Configuração do motor de template EJS
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
+
+// Configuração para arquivos estaticos
+app.use(express.static(path.join(__dirname, 'src')));
+
 // Middleware para interpretar JSON
 app.use(express.json());
 

@@ -1,0 +1,99 @@
+.footer {
+  background-color: #f8f8f8;
+  color: #333;
+  font-family: Arial, sans-serif;
+  padding: 40px 20px 10px 20px;
+  margin-top: 35px;
+}
+
+.footer-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-content-center {
+  text-align: left;
+}
+
+.footer-logo {
+  max-width: 150px;
+  margin-bottom: 15px;
+}
+
+.footer-description {
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-links li {
+  margin-bottom: 10px;
+}
+
+.footer-links a {
+  text-decoration: none;
+  color: #333;
+  font-size: 14px;
+  transition: color 0.3s;
+}
+
+.footer-links a:hover {
+  color: #007bff;
+}
+
+.payment-icons img {
+  max-width: 50px;
+  margin-right: 10px;
+}
+
+.footer-contact {
+  list-style: none;
+  padding: 0;
+  font-size: 14px;
+}
+
+.footer-contact li {
+  margin-bottom: 10px;
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 12px;
+  color: #666;
+  border-top: 1px solid #e0e0e0;
+  padding-top: 10px;
+}
+
+#cookie-banner {
+  position: fixed;
+  bottom: 0px;
+  left: 0;
+  width: 100%;
+  background-color: #f0f0f0;
+  padding: 10px;
+  text-align: center;
+  display: none;
+  z-index: 10000;
+}
+
+#cookie-banner button {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+}
+
+.terms{
+text-align: center;
+font-size: 12px;
+padding: 4px;
+}

@@ -1,111 +1,125 @@
+<%- include('./header'); -%>
+
 <div class="container busca-categorias">
   <aside class="sidebar">
-    <h3><%= busca %></h3>
-    <span class="count-busca">123 resultados</span>
+    <h3><%= pesquisa %></h3>
+    <span class="count-busca"><%= pagination.total %> <%= pagination.total > 1 ? "resultados" : "resultado" %></span>
+
+    <h4>Categoria</h4>
     <ul>
-      <li><a href="#">Categoria 1</a></li>
-      <li><a href="#">Categoria 2</a></li>
-      <li><a href="#">Preço: R$ 0 - R$ 100</a></li>
-      <li><a href="#">Preço: R$ 100 - R$ 200</a></li>
+      <% categorias.forEach(categoria => { %>
+        <li><a href="#" class="filter-category" data-id="<%= categoria.id %>"><%= categoria.name %></a></li>
+      <% }) %>
+    </ul>
+
+    <h4>Marca</h4>
+    <ul>
+      <% marcas.forEach(marca => { %>
+        <li><a href="#" class="filter-brand" data-id="<%= marca.id %>"><%= marca.name %></a></li>
+      <% }) %>
+    </ul>
+
+    <h4>Preço</h4>
+    <ul>
+      <li><a href="#" class="filter-price" data-min="<%= preco.min %>" data-max="<%= preco.max %>">
+        Preço: R$ <%= preco.min %> - R$ <%= preco.max %>
+      </a></li>
     </ul>
   </aside>
+
   <main class="main-content">
     <header class="filter-header">
       <span>Ordenar por:</span>
-      <a href="#" class="active">Mais Relevante</a>
-      <a href="#">Menor Preço</a>
-      <a href="#">Maior Preço</a>
+      <a href="#" class="sort-option" data-sort="relevance">Mais Relevante</a>
+      <a href="#" class="sort-option" data-sort="lowest_price">Menor Preço</a>
+      <a href="#" class="sort-option" data-sort="highest_price">Maior Preço</a>
     </header>
-      <div class="products">
-        <a href="#" class="card contain-item">
-          <img class="card-image" src="https://http2.mlstatic.com/D_Q_NP_2X_679155-MLB74397001041_022024-AB.webp" alt="Banner Ofertas 1"/>
-          <p class="card-title">Fone Ouvido Bluetooth Samsung Galaxy Buds Fe Intra Auricular</p>
-          <p class="card-price-before">R$ 49,90</p>
-          <p class="card-price">sR$ 99,90</p>
-          <p class="card-frete">Frete grátis</p>
+
+    <div class="products">
+      <% busca.forEach(produto => { %>
+        <a href="../detalhes/<%= produto.id %>-<%= produto.slug %>" class="card card-content contain-item">
+          <img class="card-image" src="<%= produto.images.data[0].url %>" alt="<%= produto.name %>"/>
+          <p class="card-title"><%= produto.name %></p>
+          <p class="card-price-before">R$ <%= produto.prices.data.price_formated %></p>
+          <div class="between-itens">
+            <p class="card-price">R$ <%= produto.prices.data.price_sale_formated %></p>
+          </div>
         </a>
-        <a href="#" class="card contain-item">
-          <img class="card-image" src="https://http2.mlstatic.com/D_Q_NP_2X_679155-MLB74397001041_022024-AB.webp" alt="Banner Ofertas 1"/>
-          <p class="card-title">Fone Ouvido Bluetooth Samsung Galaxy Buds Fe Intra Auricular</p>
-          <p class="card-price-before">R$ 49,90</p>
-          <p class="card-price">sR$ 99,90</p>
-          <p class="card-frete">Frete grátis</p>
-        </a>
-        <a href="#" class="card contain-item">
-          <img class="card-image" src="https://http2.mlstatic.com/D_Q_NP_2X_679155-MLB74397001041_022024-AB.webp" alt="Banner Ofertas 1"/>
-          <p class="card-title">Fone Ouvido Bluetooth Samsung Galaxy Buds Fe Intra Auricular</p>
-          <p class="card-price-before">R$ 49,90</p>
-          <p class="card-price">sR$ 99,90</p>
-          <p class="card-frete">Frete grátis</p>
-        </a>
-        <a href="#" class="card contain-item">
-          <img class="card-image" src="https://http2.mlstatic.com/D_Q_NP_2X_679155-MLB74397001041_022024-AB.webp" alt="Banner Ofertas 1"/>
-          <p class="card-title">Fone Ouvido Bluetooth Samsung Galaxy Buds Fe Intra Auricular</p>
-          <p class="card-price-before">R$ 49,90</p>
-          <p class="card-price">sR$ 99,90</p>
-          <p class="card-frete">Frete grátis</p>
-        </a>
-        <a href="#" class="card contain-item">
-          <img class="card-image" src="https://http2.mlstatic.com/D_Q_NP_2X_679155-MLB74397001041_022024-AB.webp" alt="Banner Ofertas 1"/>
-          <p class="card-title">Fone Ouvido Bluetooth Samsung Galaxy Buds Fe Intra Auricular</p>
-          <p class="card-price-before">R$ 49,90</p>
-          <p class="card-price">sR$ 99,90</p>
-          <p class="card-frete">Frete grátis</p>
-        </a>
-        <a href="#" class="card contain-item">
-          <img class="card-image" src="https://http2.mlstatic.com/D_Q_NP_2X_679155-MLB74397001041_022024-AB.webp" alt="Banner Ofertas 1"/>
-          <p class="card-title">Fone Ouvido Bluetooth Samsung Galaxy Buds Fe Intra Auricular</p>
-          <p class="card-price-before">R$ 49,90</p>
-          <p class="card-price">sR$ 99,90</p>
-          <p class="card-frete">Frete grátis</p>
-        </a>
-        <a href="#" class="card contain-item">
-          <img class="card-image" src="https://http2.mlstatic.com/D_Q_NP_2X_679155-MLB74397001041_022024-AB.webp" alt="Banner Ofertas 1"/>
-          <p class="card-title">Fone Ouvido Bluetooth Samsung Galaxy Buds Fe Intra Auricular</p>
-          <p class="card-price-before">R$ 49,90</p>
-          <p class="card-price">sR$ 99,90</p>
-          <p class="card-frete">Frete grátis</p>
-        </a>
-        <a href="#" class="card contain-item">
-          <img class="card-image" src="https://http2.mlstatic.com/D_Q_NP_2X_679155-MLB74397001041_022024-AB.webp" alt="Banner Ofertas 1"/>
-          <p class="card-title">Fone Ouvido Bluetooth Samsung Galaxy Buds Fe Intra Auricular</p>
-          <p class="card-price-before">R$ 49,90</p>
-          <p class="card-price">sR$ 99,90</p>
-          <p class="card-frete">Frete grátis</p>
-        </a>
-        <a href="#" class="card contain-item">
-          <img class="card-image" src="https://http2.mlstatic.com/D_Q_NP_2X_679155-MLB74397001041_022024-AB.webp" alt="Banner Ofertas 1"/>
-          <p class="card-title">Fone Ouvido Bluetooth Samsung Galaxy Buds Fe Intra Auricular</p>
-          <p class="card-price-before">R$ 49,90</p>
-          <p class="card-price">sR$ 99,90</p>
-          <p class="card-frete">Frete grátis</p>
-        </a>
-        <a href="#" class="card contain-item">
-          <img class="card-image" src="https://http2.mlstatic.com/D_Q_NP_2X_679155-MLB74397001041_022024-AB.webp" alt="Banner Ofertas 1"/>
-          <p class="card-title">Fone Ouvido Bluetooth Samsung Galaxy Buds Fe Intra Auricular</p>
-          <p class="card-price-before">R$ 49,90</p>
-          <p class="card-price">sR$ 99,90</p>
-          <p class="card-frete">Frete grátis</p>
-        </a>
-        <a href="#" class="card contain-item">
-          <img class="card-image" src="https://http2.mlstatic.com/D_Q_NP_2X_679155-MLB74397001041_022024-AB.webp" alt="Banner Ofertas 1"/>
-          <p class="card-title">Fone Ouvido Bluetooth Samsung Galaxy Buds Fe Intra Auricular</p>
-          <p class="card-price-before">R$ 49,90</p>
-          <p class="card-price">sR$ 99,90</p>
-          <p class="card-frete">Frete grátis</p>
-        </a>
-        <a href="#" class="card contain-item">
-          <img class="card-image" src="https://http2.mlstatic.com/D_Q_NP_2X_679155-MLB74397001041_022024-AB.webp" alt="Banner Ofertas 1"/>
-          <p class="card-title">Fone Ouvido Bluetooth Samsung Galaxy Buds Fe Intra Auricular</p>
-          <p class="card-price-before">R$ 49,90</p>
-          <p class="card-price">sR$ 99,90</p>
-          <p class="card-frete">Frete grátis</p>
-        </a>
-      </div>
-      <div class="pagination">
-          <a href="#" class="active">1</a>
-          <a href="#">2</a>
-          <a href="#">3</a>
-      </div>
+      <% }) %>
+    </div>
+
+    <div class="pagination">
+      <% for(var i=1; i <= pagination.total_pages; i++) { %>
+        <a href="#" class="pagination-link <%= pagination.current_page == i ? 'active' : '' %>" data-page="<%= i %>"><%= i %></a>
+      <% } %>
+    </div>
   </main>
 </div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    let filters = {
+      sort_by: "<%= sort_by %>",
+      min: null,
+      max: null,
+      category_id: [],
+      brand_id: [],
+      page: 1
+    };
+
+    function atualizarProdutos() {
+      const params = new URLSearchParams(filters);
+      fetch(`../buscar/${encodeURIComponent("<%= pesquisa %>")}?${params.toString()}`)
+        .then(res => res.text())
+        .then(html => {
+          document.querySelector(".products").innerHTML = new DOMParser()
+            .parseFromString(html, "text/html")
+            .querySelector(".products").innerHTML;
+        });
+    }
+
+    document.querySelectorAll(".sort-option").forEach(el => {
+      el.addEventListener("click", function (e) {
+        e.preventDefault();
+        filters.sort_by = this.getAttribute("data-sort");
+        atualizarProdutos();
+      });
+    });
+
+    document.querySelectorAll(".filter-category").forEach(el => {
+      el.addEventListener("click", function (e) {
+        e.preventDefault();
+        filters.category_id = [this.getAttribute("data-id")];
+        atualizarProdutos();
+      });
+    });
+
+    document.querySelectorAll(".filter-brand").forEach(el => {
+      el.addEventListener("click", function (e) {
+        e.preventDefault();
+        filters.brand_id = [this.getAttribute("data-id")];
+        atualizarProdutos();
+      });
+    });
+
+    document.querySelectorAll(".filter-price").forEach(el => {
+      el.addEventListener("click", function (e) {
+        e.preventDefault();
+        filters.min = this.getAttribute("data-min");
+        filters.max = this.getAttribute("data-max");
+        atualizarProdutos();
+      });
+    });
+
+    document.querySelectorAll(".pagination-link").forEach(el => {
+      el.addEventListener("click", function (e) {
+        e.preventDefault();
+        filters.page = this.getAttribute("data-page");
+        atualizarProdutos();
+      });
+    });
+  });
+</script>
+
+
+<%- include('./footer'); -%>

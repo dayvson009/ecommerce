@@ -2,10 +2,17 @@ const express = require('express');
 const router = express.Router();
 const axios = require('axios');
 
+const src = {
+  currentPage: 'produtos',
+  styles: ["header.css", "products.css", "notification.css", "footer.css"],
+  scripts: ["activity.js", "notification.js", "cookies.js"]
+}
+
+
 // Listar produtos
 router.get('/', async (req, res) => {
 
-  res.render('products');
+  res.render('products', {src});
 
   // try {
   //     const response = await axios.get(`${process.env.YAMPI_API_BASE}/catalog/products?include=images`, {
@@ -15,7 +22,7 @@ router.get('/', async (req, res) => {
   //         },
   //     });
 
-  //     res.render('produtos', { produtos: response.data.data });
+  //     res.render('produtos', {src,  produtos: response.data.data });
 
   // } catch (error) {
   //     console.error(error.message);
@@ -34,7 +41,7 @@ router.get('/:select', async (req, res) => {
   //         },
   //     });
 
-  //     res.render('produtos', { produtos: response.data.data });
+  //     res.render('produtos', { src, produtos: response.data.data });
 
   // } catch (error) {
   //     console.error(error.message);

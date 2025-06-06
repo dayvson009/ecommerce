@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+
+    <% for (const key in src.styles) { %>
+      <link rel="stylesheet" href="../styles/<%= src.styles[key] %>">
+    <% } %>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mercado Compras Livre</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:wght@400;500;600&family=Raleway&display=swap" rel="stylesheet" />
+    <link rel="shortcut icon" href="../images/favicon" type="image/x-icon" />
+    <link rel="icon" href="../images/favicon" type="image/x-icon" />
+    <link rel="apple-touch-icon" sizes="57x57" href="../images/favicon/apple-icon-57x57.png" />
+    <link rel="apple-touch-icon" sizes="60x60" href="../images/favicon/apple-icon-60x60.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/favicon/apple-icon-72x72.png" />
+    <link rel="apple-touch-icon" sizes="76x76" href="../images/favicon/apple-icon-76x76.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/favicon/apple-icon-114x114.png" />
+    <link rel="apple-touch-icon" sizes="120x120" href="../images/favicon/apple-icon-120x120.png" />
+    <link rel="apple-touch-icon" sizes="144x144" href="../images/favicon/apple-icon-144x144.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="../images/favicon/apple-icon-152x152.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="../images/favicon/apple-icon-180x180.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="../images/favicon/android-icon-192x192.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="../images/favicon/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="96x96" href="../images/favicon/favicon-96x96.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="../images/favicon/favicon-16x16.png" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="msapplication-TileColor" content="#ffffff" />
+    <meta name="msapplication-TileImage" content="../images/favicon/ms-icon-144x144.png" />
+    <meta name="theme-color" content="#ffffff" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;400;600;700&display=swap" rel="stylesheet">
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-WB70DDD08N"
+      ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      
+      gtag("config", "G-WB70DDD08N");
+    </script>
+    <script>
+      function search(e){
+        e.preventDefault();
+        console.log(e)
+        const myText = e.target.elements[0].value;
+        const textoHifenizado = myText.replace(/ /g, '-');
+        window.location = 'buscar/'+textoHifenizado;
+      }
+    </script>
+  </head>
+  <body class="<%= src.currentPage %>">
+    <div class="head-line">
+      <p>Acorda que já é hoje!</p>
+      <div>
+        <svg version="1.0" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16px" height="16px" viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve" fill="#ffffff" stroke="#ffffff">
+          <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+          <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+          <g id="SVGRepo_iconCarrier">
+            <path fill="#ffd700" d="M32,0C18.746,0,8,10.746,8,24c0,5.219,1.711,10.008,4.555,13.93c0.051,0.094,0.059,0.199,0.117,0.289l16,24 C29.414,63.332,30.664,64,32,64s2.586-0.668,3.328-1.781l16-24c0.059-0.09,0.066-0.195,0.117-0.289C54.289,34.008,56,29.219,56,24 C56,10.746,45.254,0,32,0z M32,32c-4.418,0-8-3.582-8-8s3.582-8,8-8s8,3.582,8,8S36.418,32,32,32z"></path>
+          </g>
+        </svg>
+        Frente grátis para sua região
+      </div>
+      <a href="/login">Entrar</a>
+    </div>
+    <header class="header">
+      <div class="top-bar">
+        <div class="logo">
+          <a href="/">
+            <img src="../images/Mercado Compras Livre.png" alt="Logo Mercado Compras Livre" class="logo-header">
+          </a>
+        </div>
+        <form class="search-bar" onsubmit="return search(event)">
+          <input type="text" placeholder="Procure aqui..."/>
+          <button type="submit" onclick="sendActivity('Apertou em buscar')"><img src="../images/search.png" alt="" /></button>
+        </form>
+        <nav class="menu-bar">
+          <ul class="menu">
+            <!-- 
+            <li><a href="/produtos/maisvendidos">Mais Vendidos</a></li>
+            <li><a href="/produtos/ofertas">Ofertas</a></li>
+            <li><a href="/produtos/lancamentos">Lançamentos</a></li>
+            <li><a href="/produtos/categorias">Categorias</a></li>
+            <li><a href="/produtos/pravoce">Pra você</a></li>
+            <li><a href="#">Atendimento</a></li> 
+            -->
+          </ul>
+        </nav>
+      </div>
+    </header>

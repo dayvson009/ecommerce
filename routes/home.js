@@ -2,6 +2,12 @@ const express = require('express');
 const router = express.Router();
 const axios = require('axios');
 
+const src = {
+  currentPage: 'home',
+  styles: ["header.css", "home.css", 'cardProduct.css', "footer.css", "notification.css","owl.carousel.min.css"],
+  scripts: ["jquery.min.js", "owl.carousel.min.js", 'home.js', "activity.js", "notification.js", "cookies.js"]
+}
+
 const categories = [
   {
     title: "Rastreadores",
@@ -57,14 +63,14 @@ const categories = [
 router.get('/', async (req, res) => {
 
   try {
-      const response = await axios.get(`${process.env.YAMPI_API_BASE}/catalog/products?include=firstImage,skus`, {
+      const response = await axios.get(`${process.env.YAMPI_API_BASE}/catalog/products?include=firstImage,skus,reviews&skipCache=true`, {
           headers: {
             "User-Token": process.env.YAMPI_TOKEN,
             "User-Secret-Key": process.env.YAMPI_SECRET_KEY,
           },
       });
 
-      res.render('home', { produtos: response.data.data, categories });
+      res.render('home', { src, produtos: response.data.data, categories });
 
   } catch (error) {
       console.error(error.message);
