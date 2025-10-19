@@ -10,7 +10,7 @@ function carregarPedidos() {
     return JSON.parse(data);
   } catch (error) {
     console.error('Erro ao carregar pedidos:', error);
-    return { pedidos: [], clientes: [], produtos_digitais: {}, produtos_fisicos: {} };
+    return { pedidos: [], clientes: [] };
   }
 }
 
@@ -104,21 +104,10 @@ router.get('/meus-pedidos', verificarAuth, (req, res) => {
       pedido.cliente.email.toLowerCase() === req.userEmail.toLowerCase()
     );
     
-    // Enriquecer pedidos com informações dos produtos digitais/físicos
-    const pedidosEnriquecidos = pedidosCliente.map(pedido => {
-      const produtoDigital = dados.produtos_digitais[pedido.produto.id];
-      const produtoFisico = dados.produtos_fisicos[pedido.produto.id];
-      
-      return {
-        ...pedido,
-        produto_detalhes: produtoDigital || produtoFisico || null
-      };
-    });
-    
     res.json({
       success: true,
-      pedidos: pedidosEnriquecidos,
-      total: pedidosEnriquecidos.length
+      pedidos: pedidosCliente,
+      total: pedidosCliente.length
     });
     
   } catch (error) {
@@ -141,18 +130,9 @@ router.get('/pedido/:id', verificarAuth, (req, res) => {
       return res.status(404).json({ error: 'Pedido não encontrado' });
     }
     
-    // Enriquecer com detalhes do produto
-    const produtoDigital = dados.produtos_digitais[pedido.produto.id];
-    const produtoFisico = dados.produtos_fisicos[pedido.produto.id];
-    
-    const pedidoEnriquecido = {
-      ...pedido,
-      produto_detalhes: produtoDigital || produtoFisico || null
-    };
-    
     res.json({
       success: true,
-      pedido: pedidoEnriquecido
+      pedido: pedido
     });
     
   } catch (error) {
@@ -183,9 +163,9 @@ router.get('/pedido/:id', verificarAuth, (req, res) => {
 });
 
 // Rota para download de arquivo (apenas para produtos digitais aprovados)
-router.get('/download/:pedidoId/:arquivoId', verificarAuth, (req, res) => {
+router.get('/download/:pedidoId', verificarAuth, (req, res) => {
   try {
-    const { pedidoId, arquivoId } = req.params;
+    const { pedidoId } = req.params;
     const dados = carregarPedidos();
     
     // Buscar o pedido
@@ -199,27 +179,22 @@ router.get('/download/:pedidoId/:arquivoId', verificarAuth, (req, res) => {
     }
     
     // Verificar se o pedido está aprovado
-    if (pedido.status !== 'approved') {
+    if (pedido.status !== 'aprovado') {
       return res.status(403).json({ error: 'Pedido não aprovado para download' });
     }
     
     // Verificar se é produto digital
-    const produtoDigital = dados.produtos_digitais[pedido.produto.id];
-    if (!produtoDigital) {
-      return res.status(404).json({ error: 'Produto digital não encontrado' });
+    if (pedido.tipo_produto !== 'digital') {
+      return res.status(404).json({ error: 'Produto não é digital' });
     }
     
-    // Buscar o arquivo específico
-    const arquivo = produtoDigital.arquivos.find(a => a.id === arquivoId);
-    if (!arquivo) {
-      return res.status(404).json({ error: 'Arquivo não encontrado' });
+    // Redirecionar para o Google Drive
+    if (pedido.produto.google_drive_folder) {
+      const googleDriveUrl = `https://drive.google.com/drive/folders/${pedido.produto.google_drive_folder}`;
+      res.redirect(googleDriveUrl);
+    } else {
+      res.status(404).json({ error: 'Link de download não disponível' });
     }
-    
-    // Registrar download (opcional - para auditoria)
-    console.log(`Download realizado: Pedido ${pedidoId}, Arquivo ${arquivoId}, Cliente ${req.userEmail}`);
-    
-    // Redirecionar para o arquivo (ou servir diretamente se estiver no servidor)
-    res.redirect(arquivo.url);
     
   } catch (error) {
     console.error('Erro no download:', error);
@@ -227,17 +202,28 @@ router.get('/download/:pedidoId/:arquivoId', verificarAuth, (req, res) => {
   }
 });
 
+// Função para salvar dados dos pedidos
+function salvarPedidos(dados) {
+  try {
+    fs.writeFileSync(path.join(__dirname, '../pedidos.json'), JSON.stringify(dados, null, 2));
+    return true;
+  } catch (error) {
+    console.error('Erro ao salvar pedidos:', error);
+    return false;
+  }
+}
+
 // Rota para atualizar status do pedido (admin)
 router.post('/admin/atualizar-status', (req, res) => {
   try {
-    const { paymentId, novoStatus, codigoRastreamento, transportadora } = req.body;
+    const { orderId, novoStatus } = req.body;
     
-    if (!paymentId || !novoStatus) {
-      return res.status(400).json({ error: 'Payment ID e novo status são obrigatórios' });
+    if (!orderId || !novoStatus) {
+      return res.status(400).json({ error: 'Order ID e novo status são obrigatórios' });
     }
     
     const dados = carregarPedidos();
-    const pedido = dados.pedidos.find(p => p.payment_id === paymentId);
+    const pedido = dados.pedidos.find(p => p.order_id === orderId);
     
     if (!pedido) {
       return res.status(404).json({ error: 'Pedido não encontrado' });
@@ -245,17 +231,6 @@ router.post('/admin/atualizar-status', (req, res) => {
     
     // Atualizar status
     pedido.status = novoStatus;
-    pedido.data_atualizacao = new Date().toISOString();
-    
-    // Se for produto físico e tiver código de rastreamento
-    if (pedido.tipo_produto === 'fisico' && codigoRastreamento) {
-      const produtoFisico = dados.produtos_fisicos[pedido.produto.id];
-      if (produtoFisico) {
-        produtoFisico.rastreamento.codigo = codigoRastreamento;
-        produtoFisico.rastreamento.transportadora = transportadora || '';
-        produtoFisico.rastreamento.status = novoStatus;
-      }
-    }
     
     salvarPedidos(dados);
     
