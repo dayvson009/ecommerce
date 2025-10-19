@@ -43,12 +43,19 @@ function criarPedido(orderId, produto, cliente, status = 'aprovado', plataforma 
   const novoPedido = {
     id: Date.now().toString(),
     order_id: orderId,
-    produto: produto,
-    cliente: cliente,
+    produto: {
+      id: produto.id,
+      name: produto.name,
+      google_drive_folder: produto.google_drive_folder
+    },
+    cliente: {
+      email: cliente.email,
+      nome: cliente.full_name || cliente.nome,
+      telefone: cliente.mobile || cliente.telefone
+    },
     status: status,
     plataforma: plataforma,
     data_criacao: new Date().toISOString(),
-    data_atualizacao: new Date().toISOString(),
     valor_total: produto.skus.data[0].price_discount,
     tipo_produto: produto.tipo || 'digital'
   };
@@ -86,7 +93,6 @@ function liberarAcessoCliente(cliente, produto) {
       email: cliente.email,
       nome: cliente.full_name || cliente.nome,
       telefone: cliente.mobile || cliente.telefone,
-      cpf: cliente.CPF || '',
       data_cadastro: new Date().toISOString(),
       status: 'ativo',
       produtos_comprados: []
