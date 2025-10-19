@@ -143,19 +143,23 @@
         }
         
         .btn-detalhes {
-            background-color: #007bff;
+            background-color: #28a745;
             color: white;
             border: none;
-            padding: 8px 16px;
+            padding: 10px 20px;
             border-radius: 5px;
             cursor: pointer;
             text-decoration: none;
             display: inline-block;
             font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
         }
         
         .btn-detalhes:hover {
-            background-color: #0056b3;
+            background-color: #218838;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
         
         .empty-state {
@@ -337,9 +341,15 @@
                                     </div>
                                 </div>
                                 <div class="pedido-actions">
-                                    <a href="/cliente/pedido/${pedido.id}" class="btn-detalhes">
-                                        Ver Detalhes
-                                    </a>
+                                    ${pedido.status === 'aprovado' && pedido.produto.google_drive_folder ? `
+                                        <a href="https://drive.google.com/drive/folders/${pedido.produto.google_drive_folder}" target="_blank" class="btn-detalhes">
+                                            Ver Meu Produto
+                                        </a>
+                                    ` : `
+                                        <span class="btn-detalhes" style="background-color: #6c757d; cursor: not-allowed;">
+                                            Produto Indisponível
+                                        </span>
+                                    `}
                                 </div>
                             </div>
                         `).join('')}
