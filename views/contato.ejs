@@ -1,0 +1,224 @@
+<div class="container">
+  <div class="contact-page">
+    <h1>Entre em Contato</h1>
+    
+    <div class="contact-content">
+      <div class="contact-info">
+        <h2>Informações de Contato</h2>
+        
+        <div class="contact-item">
+          <div class="contact-icon">📧</div>
+          <div class="contact-details">
+            <h3>Email</h3>
+            <p>contato@mercadocompraslivre.com.br</p>
+          </div>
+        </div>
+        
+        <div class="contact-item">
+          <div class="contact-icon">📱</div>
+          <div class="contact-details">
+            <h3>Telefone</h3>
+            <p>(81) 98531-5669</p>
+          </div>
+        </div>
+        
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div class="contact-details">
+            <h3>Endereço</h3>
+            <p>Rua da Moeda, 772<br>Recife, PE</p>
+          </div>
+        </div>
+        
+        <div class="contact-item whatsapp">
+          <div class="contact-icon">💬</div>
+          <div class="contact-details">
+            <h3>WhatsApp</h3>
+            <a href="https://wa.me/5581985315669" target="_blank" class="whatsapp-btn">
+              Conversar no WhatsApp
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="contact-hours">
+        <h2>Horário de Atendimento</h2>
+        <div class="hours-info">
+          <p><strong>Segunda a Sexta:</strong> 9h às 18h</p>
+          <p><strong>Sábado:</strong> 9h às 14h</p>
+          <p><strong>Domingo:</strong> Fechado</p>
+        </div>
+      </div>
+      
+      <div class="contact-message">
+        <h2>Como Podemos Ajudar?</h2>
+        <p>Estamos aqui para esclarecer suas dúvidas sobre nossos produtos, ajudar com pedidos ou fornecer suporte técnico. Entre em contato conosco através de qualquer um dos canais acima.</p>
+        
+        <div class="help-topics">
+          <h3>Principais Assuntos:</h3>
+          <ul>
+            <li>Dúvidas sobre produtos</li>
+            <li>Status de pedidos</li>
+            <li>Suporte técnico</li>
+            <li>Problemas com pagamento</li>
+            <li>Devoluções e trocas</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.contact-page {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.contact-page h1 {
+  color: #333;
+  text-align: center;
+  margin-bottom: 40px;
+  font-size: 2.5rem;
+}
+
+.contact-content {
+  display: grid;
+  gap: 30px;
+}
+
+.contact-info h2,
+.contact-hours h2,
+.contact-message h2 {
+  color: #333;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  border-bottom: 2px solid #f0f0f0;
+  padding-bottom: 10px;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 25px;
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 10px;
+  transition: transform 0.2s ease;
+}
+
+.contact-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.contact-icon {
+  font-size: 2rem;
+  margin-right: 20px;
+  min-width: 60px;
+  text-align: center;
+}
+
+.contact-details h3 {
+  color: #333;
+  margin: 0 0 5px 0;
+  font-size: 1.2rem;
+}
+
+.contact-details p {
+  color: #666;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.whatsapp-btn {
+  display: inline-block;
+  background: #25D366;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.3s ease;
+  margin-top: 10px;
+}
+
+.whatsapp-btn:hover {
+  background: #128C7E;
+  color: white;
+}
+
+.contact-hours {
+  background: #f8f9fa;
+  padding: 25px;
+  border-radius: 10px;
+}
+
+.hours-info p {
+  margin-bottom: 10px;
+  color: #555;
+}
+
+.hours-info strong {
+  color: #333;
+}
+
+.contact-message {
+  background: #f8f9fa;
+  padding: 25px;
+  border-radius: 10px;
+}
+
+.contact-message p {
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.help-topics h3 {
+  color: #333;
+  margin-bottom: 15px;
+  font-size: 1.2rem;
+}
+
+.help-topics ul {
+  list-style: none;
+  padding: 0;
+}
+
+.help-topics li {
+  color: #555;
+  margin-bottom: 8px;
+  padding-left: 20px;
+  position: relative;
+}
+
+.help-topics li:before {
+  content: "✓";
+  color: #25D366;
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+}
+
+@media (max-width: 768px) {
+  .contact-page {
+    padding: 20px 15px;
+  }
+  
+  .contact-page h1 {
+    font-size: 2rem;
+  }
+  
+  .contact-item {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .contact-icon {
+    margin-right: 0;
+    margin-bottom: 15px;
+  }
+}
+</style>

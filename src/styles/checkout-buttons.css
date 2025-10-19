@@ -1,0 +1,161 @@
+/* Estilos para os novos botões de checkout */
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+/* Botão MercadoLivre (Amarelo) */
+.buy-mercadolivre {
+  background: linear-gradient(135deg, #FFE600, #FFD700);
+  color: #000;
+  border: none;
+  padding: 15px 20px;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(255, 230, 0, 0.3);
+}
+
+.buy-mercadolivre:hover {
+  background: linear-gradient(135deg, #FFD700, #FFC107);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 230, 0, 0.4);
+}
+
+.buy-mercadolivre:active {
+  transform: translateY(0);
+}
+
+/* Botão Shopee (Laranja) */
+.buy-shopee {
+  background: linear-gradient(135deg, #FF6B35, #FF8C42);
+  color: white;
+  border: none;
+  padding: 15px 20px;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(255, 107, 53, 0.3);
+}
+
+.buy-shopee:hover {
+  background: linear-gradient(135deg, #FF8C42, #FF6B35);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 107, 53, 0.4);
+}
+
+.buy-shopee:active {
+  transform: translateY(0);
+}
+
+/* Botão Kiwify (Azul) */
+.buy-kiwify {
+  background: linear-gradient(135deg, #2196F3, #1976D2);
+  color: white;
+  border: none;
+  padding: 15px 20px;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(33, 150, 243, 0.3);
+}
+
+.buy-kiwify:hover {
+  background: linear-gradient(135deg, #1976D2, #1565C0);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(33, 150, 243, 0.4);
+}
+
+.buy-kiwify:active {
+  transform: translateY(0);
+}
+
+/* Botão WhatsApp (Verde) */
+.buy-whatsapp {
+  background: linear-gradient(135deg, #25D366, #128C7E);
+  color: white;
+  border: none;
+  padding: 15px 20px;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(37, 211, 102, 0.3);
+  text-decoration: none;
+}
+
+.buy-whatsapp:hover {
+  background: linear-gradient(135deg, #128C7E, #25D366);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
+  color: white;
+  text-decoration: none;
+}
+
+.buy-whatsapp:active {
+  transform: translateY(0);
+}
+
+/* Estados de loading */
+.buy-mercadolivre:disabled,
+.buy-shopee:disabled,
+.buy-kiwify:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .buttons {
+    gap: 12px;
+  }
+  
+  .buy-mercadolivre,
+  .buy-shopee,
+  .buy-kiwify,
+  .buy-whatsapp {
+    padding: 12px 16px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .buttons {
+    gap: 10px;
+  }
+  
+  .buy-mercadolivre,
+  .buy-shopee,
+  .buy-kiwify,
+  .buy-whatsapp {
+    padding: 10px 14px;
+    font-size: 13px;
+  }
+}

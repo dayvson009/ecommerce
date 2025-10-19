@@ -1,6 +1,19 @@
 const express = require('express');
 const router = express.Router();
-const axios = require('axios');
+const fs = require('fs');
+const path = require('path');
+
+// Função para carregar produtos do JSON
+function carregarProdutos() {
+  try {
+    const data = fs.readFileSync(path.join(__dirname, '../produtos.json'), 'utf8');
+    const produtosData = JSON.parse(data);
+    return produtosData.produtos;
+  } catch (error) {
+    console.error('Erro ao carregar produtos:', error);
+    return [];
+  }
+}
 
 const src = {
   currentPage: 'detalhes',
@@ -9,27 +22,27 @@ const src = {
 }
 
 router.get('/:product', async (req, res) => {
-
-  const product = req.params.product.split('-')[0];
-
+  const productId = req.params.product.split('-')[0];
+  
   try {
-      const response = await axios.get(`${process.env.YAMPI_API_BASE}/catalog/products/${product}?include=texts,images,skus.firstImage,reviews&skipCache=true`, {
-          headers: {
-            "User-Token": process.env.YAMPI_TOKEN,
-            "User-Secret-Key": process.env.YAMPI_SECRET_KEY,
-          },
-      });
-      const comment = await axios.get(`${process.env.YAMPI_API_BASE}/catalog/products/${product}/comments`, {
-          headers: {
-            "User-Token": process.env.YAMPI_TOKEN,
-            "User-Secret-Key": process.env.YAMPI_SECRET_KEY,
-          },
-      });
-      res.render('initiateCheckout', { src, product: response.data.data, comments: comment.data.data });
+    // Carregar produtos do JSON
+    const produtos = carregarProdutos();
+    
+    // Encontrar o produto pelo ID
+    const product = produtos.find(p => p.id === parseInt(productId));
+    
+    if (!product) {
+      return res.status(404).render('404');
+    }
+
+    res.render('initiateCheckout', { 
+      src, 
+      product: product
+    });
 
   } catch (error) {
-      console.error(error.message);
-      res.status(500).json({ erro: 'Erro ao conectar com a API da Yampi.' });
+    console.error(error.message);
+    res.status(500).json({ erro: 'Erro interno do servidor.' });
   }
 });
 

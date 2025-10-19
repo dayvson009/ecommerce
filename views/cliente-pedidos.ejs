@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meus Pedidos - Mercado Compras Livre</title>
+    <link rel="stylesheet" href="/styles/header.css">
+    <link rel="stylesheet" href="/styles/footer.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        
+        .header-section {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .header-section h1 {
+            margin: 0;
+            color: #333;
+        }
+        
+        .btn-logout {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-logout:hover {
+            background-color: #c82333;
+        }
+        
+        .pedidos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+        }
+        
+        .pedido-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+        
+        .pedido-card:hover {
+            transform: translateY(-2px);
+        }
+        
+        .pedido-header {
+            background: #f8f9fa;
+            padding: 15px;
+            border-bottom: 1px solid #dee2e6;
+        }
+        
+        .pedido-id {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .pedido-data {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .pedido-body {
+            padding: 15px;
+        }
+        
+        .produto-nome {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .pedido-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .pedido-valor {
+            font-weight: bold;
+            color: #28a745;
+            font-size: 18px;
+        }
+        
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+        
+        .status-aprovado {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        
+        .status-pendente {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        
+        .status-processando {
+            background-color: #cce5ff;
+            color: #004085;
+        }
+        
+        .status-cancelado {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        
+        .pedido-actions {
+            padding: 15px;
+            border-top: 1px solid #dee2e6;
+            background: #f8f9fa;
+        }
+        
+        .btn-detalhes {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+        }
+        
+        .btn-detalhes:hover {
+            background-color: #0056b3;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .empty-state h3 {
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        .empty-state p {
+            color: #999;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 60px 20px;
+        }
+        
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #007bff;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <div class="header-section">
+            <h1>Meus Pedidos</h1>
+            <button class="btn-logout" onclick="logout()">Sair</button>
+        </div>
+        
+        <div id="content">
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p>Carregando seus pedidos...</p>
+            </div>
+            
+            <div id="pedidos-container" style="display: none;">
+                <!-- Pedidos serão carregados aqui -->
+            </div>
+            
+            <div id="error-container" style="display: none;">
+                <!-- Mensagens de erro serão exibidas aqui -->
+            </div>
+        </div>
+    </div>
+
+    
+    <script>
+        // Função para formatar data
+        function formatarData(dataISO) {
+            const data = new Date(dataISO);
+            return data.toLocaleDateString('pt-BR', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+        
+        // Função para formatar valor
+        function formatarValor(valor) {
+            return new Intl.NumberFormat('pt-BR', {
+                style: 'currency',
+                currency: 'BRL'
+            }).format(valor);
+        }
+        
+        // Função para obter classe do status
+        function getStatusClass(status) {
+            const statusMap = {
+                'aprovado': 'status-aprovado',
+                'approved': 'status-aprovado',
+                'pending': 'status-pendente',
+                'pendente': 'status-pendente',
+                'in_process': 'status-processando',
+                'cancelled': 'status-cancelado',
+                'rejected': 'status-cancelado'
+            };
+            return statusMap[status] || 'status-pendente';
+        }
+        
+        // Função para obter texto do status
+        function getStatusText(status) {
+            const statusMap = {
+                'aprovado': 'Aprovado',
+                'approved': 'Aprovado',
+                'pending': 'Pendente',
+                'pendente': 'Pendente',
+                'in_process': 'Processando',
+                'cancelled': 'Cancelado',
+                'rejected': 'Rejeitado'
+            };
+            return statusMap[status] || 'Pendente';
+        }
+        
+        // Função para carregar pedidos
+        async function carregarPedidos() {
+            try {
+                const response = await fetch('/cliente/meus-pedidos', {
+                    credentials: 'include'
+                });
+                
+                if (response.status === 401) {
+                    // Token inválido, redirecionar para login
+                    window.location.href = '/cliente/login';
+                    return;
+                }
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    exibirPedidos(data.pedidos);
+                } else {
+                    exibirErro(data.error || 'Erro ao carregar pedidos');
+                }
+            } catch (error) {
+                exibirErro('Erro de conexão. Tente novamente.');
+            }
+        }
+        
+        // Função para exibir pedidos
+        function exibirPedidos(pedidos) {
+            const container = document.getElementById('pedidos-container');
+            const loading = document.getElementById('loading');
+            
+            loading.style.display = 'none';
+            
+            if (pedidos.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <h3>Nenhum pedido encontrado</h3>
+                        <p>Você ainda não possui pedidos em nossa loja.</p>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = `
+                    <div class="pedidos-grid">
+                        ${pedidos.map(pedido => `
+                            <div class="pedido-card">
+                                <div class="pedido-header">
+                                    <div class="pedido-id">Pedido #${pedido.id}</div>
+                                    <div class="pedido-data">${formatarData(pedido.data_criacao)}</div>
+                                </div>
+                                <div class="pedido-body">
+                                    <div class="produto-nome">${pedido.produto.name}</div>
+                                    <div class="pedido-info">
+                                        <span class="pedido-valor">${formatarValor(pedido.valor_total)}</span>
+                                        <span class="status-badge ${getStatusClass(pedido.status)}">
+                                            ${getStatusText(pedido.status)}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="pedido-actions">
+                                    <a href="/cliente/pedido/${pedido.id}" class="btn-detalhes">
+                                        Ver Detalhes
+                                    </a>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            }
+            
+            container.style.display = 'block';
+        }
+        
+        // Função para exibir erro
+        function exibirErro(mensagem) {
+            const container = document.getElementById('error-container');
+            const loading = document.getElementById('loading');
+            
+            loading.style.display = 'none';
+            
+            container.innerHTML = `
+                <div class="error-message">
+                    ${mensagem}
+                </div>
+            `;
+            
+            container.style.display = 'block';
+        }
+        
+        // Função para logout
+        async function logout() {
+            try {
+                await fetch('/cliente/logout', {
+                    method: 'POST',
+                    credentials: 'include'
+                });
+                window.location.href = '/cliente/login';
+            } catch (error) {
+                console.error('Erro no logout:', error);
+                window.location.href = '/cliente/login';
+            }
+        }
+        
+        // Carregar pedidos quando a página carregar
+        document.addEventListener('DOMContentLoaded', carregarPedidos);
+    </script>
+</body>
+</html>

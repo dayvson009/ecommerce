@@ -8,7 +8,7 @@
   const buttonBuy = document.getElementById("buttonBuy");
   const mainImage = document.getElementById('mainImage');
   const buttonBuyWhatsapp = document.getElementById("buttonBuyWhatsapp");
-  const whatsapplink = "https://wa.me/5581984319706?text=Preciso%20de%20ajuda%20para%20o%20produto%20";
+  const whatsapplink = "https://wa.me/5581985315669?text=Preciso%20de%20ajuda%20para%20o%20produto%20";
 
   function getLinkSeparate(element){
     const url = element.href;

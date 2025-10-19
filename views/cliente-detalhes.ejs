@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes do Pedido - Mercado Compras Livre</title>
+    <link rel="stylesheet" href="/styles/header.css">
+    <link rel="stylesheet" href="/styles/footer.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        
+        .header-section {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .header-section h1 {
+            margin: 0;
+            color: #333;
+        }
+        
+        .btn-back {
+            background-color: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-back:hover {
+            background-color: #5a6268;
+        }
+        
+        .pedido-detalhes {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        
+        .detalhes-header {
+            background: #f8f9fa;
+            padding: 20px;
+            border-bottom: 1px solid #dee2e6;
+        }
+        
+        .pedido-id {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .pedido-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .info-item {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .info-label {
+            font-size: 12px;
+            color: #666;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+        
+        .info-value {
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .status-badge {
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            text-transform: uppercase;
+            display: inline-block;
+        }
+        
+        .status-aprovado {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        
+        .status-pendente {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        
+        .status-processando {
+            background-color: #cce5ff;
+            color: #004085;
+        }
+        
+        .status-cancelado {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        
+        .produto-section {
+            padding: 20px;
+            border-bottom: 1px solid #dee2e6;
+        }
+        
+        .produto-nome {
+            font-size: 20px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 15px;
+        }
+        
+        .produto-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+        
+        .download-section {
+            padding: 20px;
+            background: #f8f9fa;
+        }
+        
+        .download-section h3 {
+            margin: 0 0 15px 0;
+            color: #333;
+        }
+        
+        .download-instructions {
+            background: #e9ecef;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            color: #495057;
+        }
+        
+        .download-files {
+            display: grid;
+            gap: 10px;
+        }
+        
+        .download-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: white;
+            border-radius: 5px;
+            border: 1px solid #dee2e6;
+        }
+        
+        .file-info {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .file-name {
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .file-size {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .btn-download {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+        }
+        
+        .btn-download:hover {
+            background-color: #218838;
+        }
+        
+        .rastreamento-section {
+            padding: 20px;
+            background: #f8f9fa;
+        }
+        
+        .rastreamento-section h3 {
+            margin: 0 0 15px 0;
+            color: #333;
+        }
+        
+        .rastreamento-info {
+            background: white;
+            padding: 15px;
+            border-radius: 5px;
+            border: 1px solid #dee2e6;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 60px 20px;
+        }
+        
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #007bff;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <%- include('header') %>
+    
+    <div class="container">
+        <div class="header-section">
+            <h1>Detalhes do Pedido</h1>
+            <a href="/cliente/pedidos" class="btn-back">← Voltar</a>
+        </div>
+        
+        <div id="content">
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p>Carregando detalhes do pedido...</p>
+            </div>
+            
+            <div id="pedido-container" class="hidden">
+                <!-- Detalhes do pedido serão carregados aqui -->
+            </div>
+            
+            <div id="error-container" class="hidden">
+                <!-- Mensagens de erro serão exibidas aqui -->
+            </div>
+        </div>
+    </div>
+    
+    <%- include('footer') %>
+    
+    <script>
+        // Função para formatar data
+        function formatarData(dataISO) {
+            const data = new Date(dataISO);
+            return data.toLocaleDateString('pt-BR', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+        
+        // Função para formatar valor
+        function formatarValor(valor) {
+            return new Intl.NumberFormat('pt-BR', {
+                style: 'currency',
+                currency: 'BRL'
+            }).format(valor);
+        }
+        
+        // Função para obter classe do status
+        function getStatusClass(status) {
+            const statusMap = {
+                'aprovado': 'status-aprovado',
+                'approved': 'status-aprovado',
+                'pending': 'status-pendente',
+                'pendente': 'status-pendente',
+                'in_process': 'status-processando',
+                'cancelled': 'status-cancelado',
+                'rejected': 'status-cancelado'
+            };
+            return statusMap[status] || 'status-pendente';
+        }
+        
+        // Função para obter texto do status
+        function getStatusText(status) {
+            const statusMap = {
+                'aprovado': 'Aprovado',
+                'approved': 'Aprovado',
+                'pending': 'Pendente',
+                'pendente': 'Pendente',
+                'in_process': 'Processando',
+                'cancelled': 'Cancelado',
+                'rejected': 'Rejeitado'
+            };
+            return statusMap[status] || 'Pendente';
+        }
+        
+        // Função para carregar detalhes do pedido
+        async function carregarDetalhesPedido() {
+            const pedidoId = window.location.pathname.split('/').pop();
+            
+            try {
+                const response = await fetch(`/cliente/pedido/${pedidoId}`, {
+                    credentials: 'include'
+                });
+                
+                if (response.status === 401) {
+                    // Token inválido, redirecionar para login
+                    window.location.href = '/cliente/login';
+                    return;
+                }
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    exibirDetalhesPedido(data.pedido);
+                } else {
+                    exibirErro(data.error || 'Erro ao carregar detalhes do pedido');
+                }
+            } catch (error) {
+                exibirErro('Erro de conexão. Tente novamente.');
+            }
+        }
+        
+        // Função para exibir detalhes do pedido
+        function exibirDetalhesPedido(pedido) {
+            const container = document.getElementById('pedido-container');
+            const loading = document.getElementById('loading');
+            
+            loading.style.display = 'none';
+            
+            let downloadSection = '';
+            let rastreamentoSection = '';
+            
+            // Se for produto digital e aprovado
+            if (pedido.produto_detalhes && pedido.produto_detalhes.tipo === 'digital' && (pedido.status === 'approved' || pedido.status === 'aprovado')) {
+                downloadSection = `
+                    <div class="download-section">
+                        <h3>📥 Download do Produto</h3>
+                        <div class="download-instructions">
+                            <strong>Instruções:</strong> ${pedido.produto_detalhes.instrucoes}
+                        </div>
+                        
+                        <!-- Link do Google Drive -->
+                        <div class="google-drive-link" style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 15px 0; border-left: 4px solid #4285f4;">
+                            <h4 style="margin: 0 0 10px 0; color: #333;">🔗 Acesso ao Google Drive</h4>
+                            <p style="margin: 0 0 10px 0; color: #666;">Clique no link abaixo para acessar todos os arquivos do seu produto:</p>
+                            <a href="https://drive.google.com/drive/folders/<%= pedido.produto.google_drive_folder %>" target="_blank" 
+                               style="background: #4285f4; color: white; padding: 12px 20px; border-radius: 6px; text-decoration: none; display: inline-block; font-weight: bold;">
+                                📁 Abrir Google Drive
+                            </a>
+                        </div>
+                        
+                        <div class="download-files">
+                            ${pedido.produto_detalhes.arquivos.map(arquivo => `
+                                <div class="download-item">
+                                    <div class="file-info">
+                                        <div class="file-name">${arquivo.nome}</div>
+                                        <div class="file-size">${arquivo.tamanho}</div>
+                                    </div>
+                                    <a href="/cliente/download/${pedido.id}/${arquivo.id}" class="btn-download">
+                                        Baixar
+                                    </a>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+            
+            // Se for produto físico
+            if (pedido.produto_detalhes && pedido.produto_detalhes.tipo === 'fisico') {
+                rastreamentoSection = `
+                    <div class="rastreamento-section">
+                        <h3>🚚 Rastreamento</h3>
+                        <div class="rastreamento-info">
+                            <div class="info-item">
+                                <div class="info-label">Prazo de Entrega</div>
+                                <div class="info-value">${pedido.produto_detalhes.prazo_entrega}</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Peso</div>
+                                <div class="info-value">${pedido.produto_detalhes.peso}</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Dimensões</div>
+                                <div class="info-value">${pedido.produto_detalhes.dimensoes}</div>
+                            </div>
+                            ${pedido.produto_detalhes.rastreamento.codigo ? `
+                                <div class="info-item">
+                                    <div class="info-label">Código de Rastreamento</div>
+                                    <div class="info-value">${pedido.produto_detalhes.rastreamento.codigo}</div>
+                                </div>
+                                <div class="info-item">
+                                    <div class="info-label">Transportadora</div>
+                                    <div class="info-value">${pedido.produto_detalhes.rastreamento.transportadora}</div>
+                                </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                `;
+            }
+            
+            container.innerHTML = `
+                <div class="pedido-detalhes">
+                    <div class="detalhes-header">
+                        <div class="pedido-id">Pedido #${pedido.id}</div>
+                        <div class="pedido-info">
+                            <div class="info-item">
+                                <div class="info-label">Data do Pedido</div>
+                                <div class="info-value">${formatarData(pedido.data_criacao)}</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Status</div>
+                                <div class="info-value">
+                                    <span class="status-badge ${getStatusClass(pedido.status)}">
+                                        ${getStatusText(pedido.status)}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Valor Total</div>
+                                <div class="info-value">${formatarValor(pedido.valor_total)}</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">ID do Pagamento</div>
+                                <div class="info-value">${pedido.payment_id}</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="produto-section">
+                        <div class="produto-nome">${pedido.produto.name}</div>
+                        <div class="produto-info">
+                            <div class="info-item">
+                                <div class="info-label">Tipo</div>
+                                <div class="info-value">${pedido.tipo_produto === 'digital' ? 'Produto Digital' : 'Produto Físico'}</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Cliente</div>
+                                <div class="info-value">${pedido.cliente.nome}</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Email</div>
+                                <div class="info-value">${pedido.cliente.email}</div>
+                            </div>
+                            ${pedido.cliente.telefone ? `
+                                <div class="info-item">
+                                    <div class="info-label">Telefone</div>
+                                    <div class="info-value">${pedido.cliente.telefone}</div>
+                                </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                    
+                    ${downloadSection}
+                    ${rastreamentoSection}
+                </div>
+            `;
+            
+            container.classList.remove('hidden');
+        }
+        
+        // Função para exibir erro
+        function exibirErro(mensagem) {
+            const container = document.getElementById('error-container');
+            const loading = document.getElementById('loading');
+            
+            loading.style.display = 'none';
+            
+            container.innerHTML = `
+                <div class="error-message">
+                    ${mensagem}
+                </div>
+            `;
+            
+            container.classList.remove('hidden');
+        }
+        
+        // Carregar detalhes quando a página carregar
+        document.addEventListener('DOMContentLoaded', carregarDetalhesPedido);
+    </script>
+</body>
+</html>

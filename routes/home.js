@@ -1,6 +1,20 @@
 const express = require('express');
 const router = express.Router();
 const axios = require('axios');
+const fs = require('fs');
+const path = require('path');
+
+// Função para carregar produtos do JSON
+function carregarProdutos() {
+  try {
+    const data = fs.readFileSync(path.join(__dirname, '../produtos.json'), 'utf8');
+    const produtosData = JSON.parse(data);
+    return produtosData.produtos;
+  } catch (error) {
+    console.error('Erro ao carregar produtos:', error);
+    return [];
+  }
+}
 
 const src = {
   currentPage: 'home',
@@ -59,23 +73,11 @@ const categories = [
   }
 ]
 
+const produtos = carregarProdutos();
+
 // Listar produtos
 router.get('/', async (req, res) => {
-
-  try {
-      const response = await axios.get(`${process.env.YAMPI_API_BASE}/catalog/products?include=firstImage,skus,reviews&skipCache=true`, {
-          headers: {
-            "User-Token": process.env.YAMPI_TOKEN,
-            "User-Secret-Key": process.env.YAMPI_SECRET_KEY,
-          },
-      });
-
-      res.render('home', { src, produtos: response.data.data, categories });
-
-  } catch (error) {
-      console.error(error.message);
-      res.status(500).json({ erro: 'Erro ao conectar com a API da Yampi.' });
-  }
+  res.render('home', { src, produtos, categories });
 });
 
 module.exports = router;

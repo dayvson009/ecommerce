@@ -1,0 +1,189 @@
+{
+  "produtos": [
+    {
+      "id": 1,
+      "id_kiwify": "2ad7be60-ac18-11f0-a02c-255e89083c39",
+      "slug": "corel-draw-graphics-suite",
+      "title": "Corel Draw Graphics Suite",
+      "name": "Corel Draw Graphics Suite 2025 - Vitalício (Não precisa instalar!)",
+      "tipo": "digital",
+      "google_drive_folder": "SEU_FOLDER_ID_COREL_AQUI",
+      "botoes": {
+        "mercadolivre": "https://produto.mercadolivre.com.br/MLB-5662442310-corel-de-pendrive-2025-plugar-e-usar-_JM",
+        "shopee": "https://shopee.com.br/product/897475480/22194564264/",
+        "kiwify": "https://pay.kiwify.com.br/x7ifAg4",
+        "whatsapp": "5581985315669"
+      },
+      "reviews": {
+        "data": [
+          { "rating": 5 },
+          { "rating": 5 },
+          { "rating": 4 },
+          { "rating": 5 },
+          { "rating": 5 }
+        ]
+      },
+      "comments" :[
+        {
+          "name": "HernandesSilva123",
+          "message": "Precisa instalar? É totalmente Vitalício?",
+          "approved": true,
+          "answer": {
+            "message": "Hernandes, é totalmente Vitalício, não precisa instalar!"
+          }
+        },
+        {
+          "name": "Maria Santos",
+          "message": "Comprando por aqui qual prazo de entrega?",
+          "approved": true,
+          "answer": {
+            "message": "Compras feitas por aqui são enviadas imediatamente!, já compras feitas no Mercado Livre ou Shopee leva entre 5 a 15 dias para chegar!"
+          }
+        },
+        {
+          "name": "KleberH023",
+          "message": "Já vem crackeado?",
+          "approved": true,
+          "answer": {
+            "message": "Essa versão não precisa ser crackeada, é totalmente Vitalício e já vem com a licença ativa!"
+          }
+        }
+      ],
+      "rating" :[
+        {
+          "name": "Allanmpires",
+          "message": "Funcionando!",
+          "approved": true,
+          "answer": {
+            "message": "Obrigado pelo feedback!"
+          }
+        },
+        {
+          "name": "Dioneboy00",
+          "message": "Só em não precisar instalar, já facilita muito, obg!",
+          "approved": true,
+          "answer": {
+            "message": "Isso mesmo, além disso ele é vitalício!"
+          }
+        },
+        {
+          "name": "João da Silva",
+          "message": "Obrigado, deu tudo certo!",
+          "approved": true,
+          "answer": {
+            "message": "Nós que agradecemos!"
+          }
+        }
+      ],
+      "skus": {
+        "data": [
+          { 
+            "price_sale": 65.90, 
+            "price_discount": 47.01,
+            "total_in_stock": 100,
+            "total_orders": 85,
+            "token": "corel-sku-1",
+            "variations": [],
+            "firstImage": {
+              "data": {
+                "medium": {
+                  "url": "/images/produtos/312312.png",
+                  "width": 500,
+                  "height": 500
+                }
+              }
+            }
+          }
+        ]
+      },
+      "images": {
+        "data": [
+          {
+            "name": "Corel Draw Pendrive",
+            "small": {
+              "url": "/images/produtos/312312.png",
+              "width": 100,
+              "height": 100
+            },
+            "medium": {
+              "url": "/images/produtos/312312.png",
+              "width": 500,
+              "height": 500
+            }
+          },
+          {
+            "name": "Corel Draw Pendrive",
+            "small": {
+              "url": "/images/produtos/312332-min.png",
+              "width": 100,
+              "height": 100
+            },
+            "medium": {
+              "url": "/images/produtos/312332-min.png",
+              "width": 500,
+              "height": 500
+            }
+          },
+          {
+            "name": "Corel Draw Pendrive",
+            "small": {
+              "url": "/images/produtos/fdsfa.jpg",
+              "width": 100,
+              "height": 100
+            },
+            "medium": {
+              "url": "/images/produtos/fdsfa.jpg",
+              "width": 500,
+              "height": 500
+            }
+          },
+          {
+            "name": "Corel Draw Pendrive",
+            "small": {
+              "url": "/images/produtos/fsdfas.jpg",
+              "width": 100,
+              "height": 100
+            },
+            "medium": {
+              "url": "/images/produtos/fsdfas.jpg",
+              "width": 500,
+              "height": 500
+            }
+          },
+          {
+            "name": "Corel Draw Pendrive",
+            "small": {
+              "url": "/images/produtos/entrega_rapida.jpg",
+              "width": 100,
+              "height": 100
+            },
+            "medium": {
+              "url": "/images/produtos/entrega_rapida.jpg",
+              "width": 500,
+              "height": 500
+            }
+          }
+        ]
+      },
+      "firstImage": {
+        "data": {
+          "thumb": {
+            "url": "/images/produtos/312312.png",
+            "width": 320,
+            "height": 320
+          }
+        }
+      },
+      "texts": {
+        "data": {
+          "description": "<strong>CorelDRAW Graphics Suite 2025</strong><p><strong>Não precisa instalar!</strong> - COMPRANDO POR AQUI você recebe imediatamente, simples fácil e rápido.<br/><br/> Comprando pela Shopee ou Mercado Livre você recebe um pendrive com o programa, a modalidade de compra digital é simples e rápida.<br /><br /><strong>Licença 100% vitalícia</strong> com acesso imediato após a compra, ou através de Pendrive nas plataformas Shopee e MercadoLivre Oficial, ambos com Ideal para quem busca ferramentas profissionais de design sem complicação.</p><h2>Características principais:</h2><ul>  <li>Interface moderna e intuitiva 2025</li>  <li>Ferramentas avançadas de design vetorial e layout</li>  <li>Compatível com Windows</li>  <li>Suporte aos principais formatos (AI, PSD, PDF, SVG, EPS, etc...)</li>  <li>Recursos profissionais de tipografia e cores</li></ul><h2>Vantagens:</h2><ul>  <li><strong>Entrega digital imediata</strong> — receba sua licença e instruções logo após a compra</li>  <li><strong>Sem mensalidades</strong> — pagamento único e acesso vitalício</li>  <li><strong>Atendimento e suporte pelo WhatsApp</strong></li>  <li>Compra segura por aqui mesmo</li></ul><h3>Garantia e Segurança:</h3><p>Compra protegida e suporte completo. Caso haja qualquer dificuldade, oferecemos substituição e acompanhamento até tudo funcionar perfeitamente.</p><h3>Entrega:</h3><p>Após a confirmação do pagamento, você recebe o link de acesso diretamente por aqui.</p><p><strong>Dúvidas?</strong> Fale conosco no WhatsApp"
+        }
+      }
+    }    
+  ],
+  "configuracoes": {
+    "google_drive_base_url": "https://drive.google.com/drive/folders/",
+    "whatsapp_suporte": "5581985315669",
+    "email_suporte": "suporte@seudominio.com"
+  }
+}

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Área do Cliente - Mercado Compras Livre</title>
+    <link rel="stylesheet" href="/styles/header.css">
+    <link rel="stylesheet" href="/styles/footer.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .login-form h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+            font-weight: 500;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+        
+        .btn-login {
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .btn-login:hover {
+            background-color: #0056b3;
+        }
+        
+        .btn-login:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        
+        .error-message {
+            color: #dc3545;
+            text-align: center;
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            border-radius: 5px;
+            display: none;
+        }
+        
+        .success-message {
+            color: #155724;
+            text-align: center;
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            border-radius: 5px;
+            display: none;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            margin-top: 15px;
+        }
+        
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #007bff;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .help-text {
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <div class="login-form">
+            <h2>Área do Cliente</h2>
+            <p style="text-align: center; color: #666; margin-bottom: 30px;">
+                Digite seu email para acessar seus pedidos
+            </p>
+            
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required 
+                           placeholder="seu@email.com">
+                </div>
+                
+                <button type="submit" class="btn-login" id="btnLogin">
+                    Acessar Meus Pedidos
+                </button>
+            </form>
+            
+            <div class="error-message" id="errorMessage"></div>
+            <div class="success-message" id="successMessage"></div>
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p>Verificando pedidos...</p>
+            </div>
+        </div>
+        
+        <div class="help-text">
+            <p>Não encontrou seus pedidos? Verifique se o email está correto ou entre em contato conosco.</p>
+        </div>
+    </div>
+    
+    
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const btnLogin = document.getElementById('btnLogin');
+            const errorMessage = document.getElementById('errorMessage');
+            const successMessage = document.getElementById('successMessage');
+            const loading = document.getElementById('loading');
+            
+            // Limpar mensagens anteriores
+            errorMessage.style.display = 'none';
+            successMessage.style.display = 'none';
+            
+            // Mostrar loading
+            loading.style.display = 'block';
+            btnLogin.disabled = true;
+            
+            try {
+                const response = await fetch('/cliente/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email: email })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    successMessage.textContent = `Login realizado! Encontramos ${data.pedidos} pedido(s) para este email.`;
+                    successMessage.style.display = 'block';
+                    
+                    // Redirecionar para a área de pedidos após 2 segundos
+                    setTimeout(() => {
+                        window.location.href = '/cliente/pedidos';
+                    }, 2000);
+                } else {
+                    errorMessage.textContent = data.error || 'Erro ao fazer login';
+                    errorMessage.style.display = 'block';
+                }
+            } catch (error) {
+                errorMessage.textContent = 'Erro de conexão. Tente novamente.';
+                errorMessage.style.display = 'block';
+            } finally {
+                loading.style.display = 'none';
+                btnLogin.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>

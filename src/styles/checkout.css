@@ -96,29 +96,57 @@ h1.product-title:after {
   border-color: #9100ff;
 }
 
-.main-image img {
+.main-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
   width: 100%;
   border-radius: 8px;
-  height: auto;
-  -webkit-user-drag: none;
-  user-drag: none;
+  overflow: hidden;
+  position: relative;
+  padding-bottom: 30px;
+  flex-direction: column;
 }
 
-#imageIndex{
-  text-align: center;
+.main-image img {
+  max-width: 100%;
+  max-height: 500px;
+  width: auto;
+  height: auto;
+  border-radius: 8px;
+  object-fit: contain;
+  min-height: 500px;
+}
+
+#imageIndex {
+  color: #3f464a;
+  padding: 5px 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 #prevButton, #nextButton {
-  font-size: 20px;
+  font-size: 18px;
   cursor: pointer;
-  background-color: transparent;
+  background-color: rgba(255, 255, 255, 0.9);
   border: none;
-  padding: 5px;
+  padding: 5px 8px;
+  border-radius: 50%;
   transition: 0.3s;
+  color: #333;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #prevButton:hover, #nextButton:hover {
-  color: #007bff; /* Cor para o hover */
+  background-color: rgba(255, 255, 255, 1);
+  color: #007bff;
+  transform: scale(1.1);
 }
 
 /* Descrição do Produto */
@@ -139,6 +167,8 @@ h1.product-title:after {
   transition: .3s;
   overflow: hidden;
   position: relative;
+  color: #717995;
+  padding-bottom: 60px;
 }
 
 #showmore{
@@ -309,7 +339,7 @@ h1.product-title:after {
 }
 
 .product-title {
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   margin: 15px 0 0 0;
   font-weight: normal;
   color: #333;
@@ -520,7 +550,6 @@ h3.variations {
   }
   .header {
     padding: 10px 0;
-    background-color: #f4f4f5;
   }
   .logo-header {
     height: 40px;
@@ -535,7 +564,7 @@ h3.variations {
   .right-block .product-status, .right-block .product-title{
     display: none;
   }
-
+  
   .right-block{
     position: relative;
     width: 100%;
@@ -551,11 +580,11 @@ h3.variations {
     width: 30px;
     height: 30px;
   }
-
+  
   .quantity-input{
     height: 30px;
   }
-
+  
   .description h2{
     margin-top: 0;
     margin-bottom: 15px;
@@ -570,8 +599,13 @@ h3.variations {
     padding: 0;
     border: 0;
   }
-
+  
   .thumbnails{
     display: none;
+  }
+}
+@media only screen and (max-width: 550px) {
+  .main-image img {
+    min-height: 280px;
   }
 }
