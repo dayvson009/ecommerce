@@ -29,6 +29,10 @@ app.use('/clientes.json', (req, res) => {
   res.status(404).send('Not Found');
 });
 
+app.use('/atividades.json', (req, res) => {
+  res.status(404).send('Not Found');
+});
+
 // Configuração para arquivos estaticos
 app.use(express.static(path.join(__dirname, 'src')));
 

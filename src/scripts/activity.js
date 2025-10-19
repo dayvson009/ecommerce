@@ -30,10 +30,11 @@ function getDeviceType() {
 
 function sendActivity(activity) {
   var xhr = new XMLHttpRequest();
-  xhr.open("POST", "https://neoenergia-segundavia.siteee.com.br/update_json_boteco.php", true);
+  xhr.open("POST", "/api/activity", true);
   xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
   xhr.onreadystatechange = function () {
     if (xhr.readyState === 4 && xhr.status === 200) {
+      // Atividade enviada com sucesso
     }
   };
   var data = JSON.stringify({ cliente: myIP, device: getDeviceType(), activity: `${getdataHour()} - ${activity}` });

@@ -1,0 +1,16 @@
+{
+  "atividades": [
+    {
+      "cliente": "179.48.228.34",
+      "device": "Desktop",
+      "activity": "19/10/2025, 03:55:10 - Acessou o site http://localhost:3000/",
+      "timestamp": "2025-10-19T06:55:10.080Z"
+    },
+    {
+      "cliente": "179.48.228.34",
+      "device": "Desktop",
+      "activity": "19/10/2025, 04:03:20 - Acessou o site http://localhost:3000/",
+      "timestamp": "2025-10-19T07:03:20.328Z"
+    }
+  ]
+}
